@@ -1,8 +1,28 @@
 package com.company;
 
+import java.util.Comparator;
+
 // Author: Samuel Bedeau
 // Purpose: Card class for variety of Card Games
-public class Card {
+public class Card{
+    public static class CompareAscending implements Comparator{
+        @Override
+        public int compare(Object o1, Object o2) {
+            Card a = (Card)o1;
+            Card b = (Card)o2;
+
+            if (a.getSuit().ordinal() == b.getSuit().ordinal()){
+                return 0;
+            }
+            if (a.getSuit().ordinal()> b.getSuit().ordinal()){
+                return 1;
+            }
+            if (a.getSuit().ordinal()<b.getSuit().ordinal()){
+                return -1;
+            }
+            return (((Card)o1).getRank().getValue()-((Card)o2).getRank().getValue());
+        }
+    }
     // Rank enum for class Card
     public enum Rank {
         TWO(2),
@@ -82,6 +102,13 @@ public class Card {
     public static void main(String[] args) {
         Card c = new Card(Rank.TEN, Suit.CLUBS);
         Card b = new Card(Rank.QUEEN, Suit.DIAMONDS);
+
+        Card[] cards;
+
+
+        CompareAscending cp = new CompareAscending();
+
+
         System.out.println(difference(c,b));
         System.out.println(differenceValue(c,b));
         System.out.println(c.rank.getPrevious());
