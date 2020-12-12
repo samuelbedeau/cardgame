@@ -1,9 +1,20 @@
 package com.company;
 
+// Author: Samuel Bedeau
+// Purpose: Card class for variety of Card Games
 public class Card {
     // Rank enum for class Card
     public enum Rank {
-        TWO(2), THREE(3), FOUR(4), FIVE(5), SIX(6), SEVEN(7), EIGHT(8), NINE(9), TEN(10), JACK(10), QUEEN(10), KING(10), ACE(11);
+        TWO(2),
+        THREE(3),
+        FOUR(4),
+        FIVE(5),
+        SIX(6),
+        SEVEN(7)
+        , EIGHT(8),
+        NINE(9),
+        TEN(10),
+        JACK(10), QUEEN(10), KING(10), ACE(11);
         // Enum variable for the value
         private int value;
         // Constructor for Rank enum
@@ -33,19 +44,32 @@ public class Card {
             return values()[(int) (Math.random() * values().length)];
         }
     }
-    // Enum instance/ Class variable types - Rank & Suit
+    // Class variable types - Rank & Suit of Enum Type
     private Rank rank;
     private Suit suit;
-
+    // Class Constructor
     public Card(Rank rank, Suit suit) {
         this.rank = rank;
         this.suit = suit;
     }
+    // Class accessor methods
     public Rank getRank() {
         return rank;
     }
     public Suit getSuit() {
         return suit;
+    }
+    // Returns difference in rank between two Cards
+    public static int difference(Card a, Card b){
+        int diff = 0;
+        diff = b.getRank().ordinal() - a.getRank().ordinal();
+        return diff;
+    }
+    // Returns difference in value between two cards
+    public static int differenceValue(Card a, Card b){
+        int diff =0;
+        diff = a.getRank().getValue() - b.getRank().getValue();
+        return diff;
     }
     @Override
     public String toString() {
@@ -56,10 +80,14 @@ public class Card {
     }
 
     public static void main(String[] args) {
-        Card c = new Card(Rank.FIVE, Suit.CLUBS);
+        Card c = new Card(Rank.TEN, Suit.CLUBS);
+        Card b = new Card(Rank.QUEEN, Suit.DIAMONDS);
+        System.out.println(difference(c,b));
+        System.out.println(differenceValue(c,b));
         System.out.println(c.rank.getPrevious());
         System.out.println(c.rank.getValue());
         System.out.println(c.suit.getRandomSuit());
+
     }
 }
 
